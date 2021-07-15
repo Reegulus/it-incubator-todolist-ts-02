@@ -25,6 +25,9 @@ function App() {
     if(filter === "active") {
         tasksForTodolist = tasks.filter(t => t.isDone === false)
     }
+    function changeFilter(value: 'all' | 'completed' | 'active') {
+        setFilter(value)
+    }
 
     return (
         <div className="App">
@@ -32,6 +35,7 @@ function App() {
                 title="What to learn"
                 tasks={tasksForTodolist}
                 removeTask={removeTask}
+                changeFilter={changeFilter}
             />
         </div>
     );
