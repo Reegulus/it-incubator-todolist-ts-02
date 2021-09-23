@@ -1,14 +1,17 @@
 import React from 'react';
-import {TasksPropsType} from "./App";
+import {FilterValueType, TasksPropsType} from "./App";
 
 type PropsType = {
     title: string
     tasks: Array<TasksPropsType>
-    removeTask: (taskId: number) => void
-    changeFilter: (value: "all" | "completed" | "active") => void
+    removeTask: (taskId: string) => void
+    changeFilter: (value: FilterValueType) => void
 }
 
 export function Todolist(props: PropsType) {
+
+    let on
+
     return <div>
         <h3>{props.title}</h3>
         <div>
