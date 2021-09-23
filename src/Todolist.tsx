@@ -4,6 +4,7 @@ import {FilterValueType, TasksPropsType} from "./App";
 type PropsType = {
     title: string
     tasks: Array<TasksPropsType>
+    addTask: ()=> void
     removeTask: (taskId: string) => void
     changeFilter: (value: FilterValueType) => void
 }
@@ -16,7 +17,7 @@ export function Todolist(props: PropsType) {
         <h3>{props.title}</h3>
         <div>
             <input/>
-            <button>+</button>
+            <button onClick={ () => {props.addTask()}}>+</button>
         </div>
         <ul>
             {
