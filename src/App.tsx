@@ -35,7 +35,7 @@ function App() {
         if(task) {
             task.isDone = isDone
         }
-        setTasks(tasks)
+        setTasks([...tasks])
     }
 
     let [filter, setFilter] = useState<FilterValueType>("all")
@@ -60,7 +60,7 @@ function App() {
                 tasks={taskForTodolist}
                 addTask={addTask}
                 removeTask={removeTask}
-                changeStatus={changeStatus}
+                changeTaskStatus={changeStatus}
                 changeFilter={changeFilter}
             />
         </div>
