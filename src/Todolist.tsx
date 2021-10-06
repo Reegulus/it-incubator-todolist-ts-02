@@ -3,6 +3,7 @@ import {FilterValueType, TasksPropsType} from "./App";
 
 type PropsType = {
     title: string
+    id: string
     tasks: Array<TasksPropsType>
     filter: FilterValueType
     addTask: (title: string) => void
