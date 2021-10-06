@@ -15,10 +15,13 @@ export type TodolistsType = {
     title: string
     filter: FilterValueType
 }
+export type TasksStateType = {
+    [key: string]: Array<TasksPropsType>
+}
 
 function App() {
 
-    let [filter, setFilter] = useState<FilterValueType>("all")
+    // let [filter, setFilter] = useState<FilterValueType>("all")
 
     function addTask(title: string, todolistId: string) {
         let task = {id: v1(), title: title, isDone: false}
@@ -33,30 +36,28 @@ function App() {
         setTasks({...tasks})
     }
 
-    function changeStatus (id: string, isDone: boolean, todolistId: string) {
+    function changeStatus(id: string, isDone: boolean, todolistId: string) {
         let todolistTasks = tasks[todolistId]
         let task = todolistTasks.find(t => t.id === id)
-        if(task) {
+        if (task) {
             task.isDone = isDone
         }
         setTasks({...tasks})
     }
 
 
-
-
-
     function changeFilter(value: FilterValueType, todolistId: string) {
         let todolist = todolists.find(tl => tl.id === todolistId)
-        if(todolist) {
+        if (todolist) {
             todolist.filter = value
             setTodolists([...todolists])
         }
     }
+
     let todolistId1 = v1()
     let todolistId2 = v1()
 
-    const [todolists, setTodolists] = useState <Array<TodolistsType>>([
+    const [todolists, setTodolists] = useState<Array<TodolistsType>>([
         {
             id: todolistId1,
             title: "What to learn",
@@ -69,9 +70,14 @@ function App() {
         }
     ])
 
+    let removeTodolist = (todolistId: string) => {
+        let filteredTodolist = todolists.filter(tl => tl.id !== todolistId)
+        setTodolists(filteredTodolist)
+        delete tasks[todolistId]
+        setTasks({...tasks})
+    }
 
-
-    let [tasks, setTasks] = useState({
+    let [tasks, setTasks] = useState<TasksStateType>({
         [todolistId1]: [
             {id: v1(), title: "HTML&CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true},
@@ -107,6 +113,7 @@ function App() {
                             addTask={addTask}
                             filter={tl.filter}
                             removeTask={removeTask}
+                            removeTodolist={removeTodolist}
                             changeTaskStatus={changeStatus}
                             changeFilter={changeFilter}
                         />
