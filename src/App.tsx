@@ -14,10 +14,8 @@ export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
+
 function App() {
-
-
-
 
     function removeTask(id: string, todolistId: string) {
         let tasks = tasksObj[todolistId]
@@ -86,10 +84,24 @@ function App() {
         ]
     })
 
+    function AddTodolist(title: string) {
+        const todolist: TodolistsPropsType = {
+            id: v1(),
+            filter: "all",
+            title: title
+        }
+
+        setTodolists([todolist, ...todolists])
+        setTasks({
+            ...tasksObj,
+            [todolist.id]: []
+        })
+    }
+
     return (
         <div className="App">
 
-            <AddItemForm addTask={ () => ("l")} id={"s"}/>
+            <AddItemForm addItem={AddTodolist}/>
             {
                 todolists.map((tl) => {
                     let tasksForTodolist = tasksObj[tl.id];
