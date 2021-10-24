@@ -31,7 +31,14 @@ function App() {
         tasksObj[todolistId] = newTasks;
         setTasks({...tasksObj})
     }
-
+function changeTitle(taskId: string, newTitle: string, todolistId: string) {
+    let tasks = tasksObj[todolistId]
+    let task = tasks.find(t => t.id === taskId);
+    if (task) {
+        task.title = newTitle;
+        setTasks({...tasksObj});
+    }
+}
     function changeStatus(taskId: string, isDone: boolean, todolistId: string) {
         let tasks = tasksObj[todolistId]
         let task = tasks.find(t => t.id === taskId);
@@ -48,9 +55,14 @@ function App() {
             setTodolists([...todolists])
         }
     }
-
+function changeTodolistTitle(todolistId: string, newTitle: string) {
+    let todolist = todolists.find(tl => tl.id === todolistId)
+    if(todolist){
+        todolist.title = newTitle
+        setTodolists([...todolists])
+    }
+}
     function removeTodolist(todolistId: string) {
-        debugger
         let filteredTodolist = todolists.filter(tl => tl.id != todolistId)
         setTodolists(filteredTodolist)
         delete tasksObj[todolistId]
@@ -114,16 +126,18 @@ function App() {
                     }
                     return (
                         <Todolist
-                            key={tl.id}
                             id={tl.id}
+                            key={tl.id}
                             title={tl.title}
-                            tasks={tasksForTodolist}
-                            removeTask={removeTask}
-                            removeTodolist={removeTodolist}
-                            changeFilter={changeFilter}
                             addTask={addTask}
-                            changeTaskStatus={changeStatus}
                             filter={tl.filter}
+                            removeTask={removeTask}
+                            tasks={tasksForTodolist}
+                            changeFilter={changeFilter}
+                            changeTaskTitle={changeTitle}
+                            changeTaskStatus={changeStatus}
+                            removeTodolist={removeTodolist}
+                            changeTodolistTitle={changeTodolistTitle}
                         />
                     )
                 })
